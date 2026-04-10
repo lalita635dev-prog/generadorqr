@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Generator Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>🔳 Generador de QR</h1>
+
+  <input type="text" id="urlInput" placeholder="Ingresá tu link..." />
+  
+  <div class="controls">
+    <label>Color del QR:</label>
+    <input type="color" id="colorPicker" value="#000000">
+    
+    <label>Logo:</label>
+    <input type="file" id="logoInput" accept="image/*">
+  </div>
+
+  <div id="qrContainer"></div>
+
+  <div class="buttons">
+    <button onclick="generateQR()">Generar</button>
+    <button onclick="downloadQR()">Descargar</button>
+    <button onclick="copyQR()">Copiar</button>
+    <button onclick="resetAll()">Reset</button>
+  </div>
+
+  <p id="error"></p>
+</div>
+
+<footer>
+  <p>© By Lalita635</p>
+  <div class="links">
+    <a href="https://github.com/" target="_blank">GitHub</a>
+    <a href="#">Reportar Bug</a>
+    <a href="#">Sugerir Mejora</a>
+    <a href="#">Colaborar</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
