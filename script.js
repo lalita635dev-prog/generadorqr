@@ -27,6 +27,7 @@ qrCode = new QRCodeStyling({
 
 qrCode.append(qrContainer);
 
+/* VALIDAR URL */
 function isValidURL(string) {
     try {
         new URL(string);
@@ -36,6 +37,7 @@ function isValidURL(string) {
     }
 }
 
+/* GENERAR QR */
 function generateQR() {
     const url = document.getElementById("urlInput").value;
     const color = document.getElementById("colorPicker").value;
@@ -50,16 +52,21 @@ function generateQR() {
 
     qrCode.update({
         data: url,
-        dotsOptions: {
-            color: color
-        },
+        dotsOptions: { color: color },
         image: logoData
     });
 }
 
+/* LOGO */
+document.getElementById("logoBtn").addEventListener("click", () => {
+    document.getElementById("logoInput").click();
+});
+
 document.getElementById("logoInput").addEventListener("change", function(e) {
     const file = e.target.files[0];
     if (!file) return;
+
+    document.getElementById("fileName").innerText = file.name;
 
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -69,6 +76,7 @@ document.getElementById("logoInput").addEventListener("change", function(e) {
     reader.readAsDataURL(file);
 });
 
+/* DESCARGAR */
 function downloadQR() {
     qrCode.download({
         name: "qr",
@@ -76,6 +84,7 @@ function downloadQR() {
     });
 }
 
+/* COPIAR */
 async function copyQR() {
     const canvas = qrContainer.querySelector("canvas");
     if (!canvas) return;
@@ -85,25 +94,40 @@ async function copyQR() {
             await navigator.clipboard.write([
                 new ClipboardItem({ "image/png": blob })
             ]);
-            alert("✅ QR copiado al portapapeles");
-        } catch (err) {
+            alert("✅ Copiado");
+        } catch {
             alert("❌ Error al copiar");
         }
     });
 }
 
+/* RESET */
 function resetAll() {
     document.getElementById("urlInput").value = "";
     document.getElementById("colorPicker").value = "#000000";
     document.getElementById("logoInput").value = "";
+    document.getElementById("fileName").innerText = "Ningún archivo seleccionado";
     document.getElementById("error").innerText = "";
     logoData = null;
 
     qrCode.update({
         data: "",
         image: "",
-        dotsOptions: {
-            color: "#000000"
-        }
+        dotsOptions: { color: "#000000" }
     });
 }
+
+/* TEMA */
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", () => {
+    const body = document.body;
+
+    if (body.classList.contains("dark")) {
+        body.classList.replace("dark", "light");
+        themeToggle.innerText = "☀️";
+    } else {
+        body.classList.replace("light", "dark");
+        themeToggle.innerText = "🌙";
+    }
+});

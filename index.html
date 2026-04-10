@@ -6,19 +6,28 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
 </head>
-<body>
+<body class="dark">
 
 <div class="container">
-  <h1>🔳 Generador de QR</h1>
+  <div class="top-bar">
+    <h1>🔳 Generador de QR</h1>
+    <button id="themeToggle">🌙</button>
+  </div>
 
   <input type="text" id="urlInput" placeholder="Ingresá tu link..." />
-  
+
   <div class="controls">
-    <label>Color del QR:</label>
-    <input type="color" id="colorPicker" value="#000000">
-    
-    <label>Logo:</label>
-    <input type="file" id="logoInput" accept="image/*">
+    <div class="control-group">
+      <label>Color del QR</label>
+      <input type="color" id="colorPicker" value="#000000">
+    </div>
+
+    <div class="control-group">
+      <label>Logo</label>
+      <button id="logoBtn">Seleccionar imagen</button>
+      <input type="file" id="logoInput" accept="image/*" hidden>
+      <span id="fileName">Ningún archivo seleccionado</span>
+    </div>
   </div>
 
   <div id="qrContainer"></div>
