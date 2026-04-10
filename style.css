@@ -1,0 +1,72 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+
+.container {
+  margin-top: 40px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.controls {
+  margin: 15px;
+}
+
+.controls label {
+  margin-right: 10px;
+}
+
+#qrContainer {
+  margin: 20px auto;
+  width: 300px;
+  height: 300px;
+}
+
+.buttons button {
+  margin: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+  transition: 0.2s;
+}
+
+.buttons button:hover {
+  background: #1d4ed8;
+}
+
+#error {
+  color: #ef4444;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 20px;
+  background: #020617;
+}
+
+footer .links a {
+  margin: 0 10px;
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+footer .links a:hover {
+  text-decoration: underline;
+}
