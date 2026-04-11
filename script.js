@@ -27,17 +27,13 @@ qrCode = new QRCodeStyling({
 
 qrCode.append(qrContainer);
 
-/* VALIDAR URL */
+/* VALIDAR */
 function isValidURL(string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (_) {
-        return false;
-    }
+    try { new URL(string); return true; }
+    catch { return false; }
 }
 
-/* GENERAR QR */
+/* GENERAR */
 function generateQR() {
     const url = document.getElementById("urlInput").value;
     const color = document.getElementById("colorPicker").value;
@@ -50,37 +46,24 @@ function generateQR() {
 
     error.innerText = "";
 
-    qrCode.update({
-        data: url,
-        dotsOptions: { color: color },
-        image: logoData
-    });
+    qrContainer.classList.remove("show");
+
+    setTimeout(() => {
+        qrCode.update({
+            data: url,
+            dotsOptions: { color: color },
+            image: logoData
+        });
+
+        qrContainer.classList.add("show");
+    }, 200);
 }
 
-/* LOGO */
-document.getElementById("logoBtn").addEventListener("click", () => {
-    document.getElementById("logoInput").click();
-});
-
-document.getElementById("logoInput").addEventListener("change", function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    document.getElementById("fileName").innerText = file.name;
-
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        logoData = event.target.result;
-        generateQR();
-    };
-    reader.readAsDataURL(file);
-});
-
 /* DESCARGAR */
-function downloadQR() {
+function downloadQR(format) {
     qrCode.download({
         name: "qr",
-        extension: "png"
+        extension: format
     });
 }
 
@@ -96,31 +79,64 @@ async function copyQR() {
             ]);
             alert("✅ Copiado");
         } catch {
-            alert("❌ Error al copiar");
+            alert("❌ Error");
         }
     });
+}
+
+/* DRAG & DROP */
+const dropZone = document.getElementById("dropZone");
+const logoInput = document.getElementById("logoInput");
+
+dropZone.addEventListener("click", () => logoInput.click());
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.style.background = "rgba(59,130,246,0.2)";
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.style.background = "";
+});
+
+dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    handleFile(e.dataTransfer.files[0]);
+});
+
+logoInput.addEventListener("change", (e) => {
+    handleFile(e.target.files[0]);
+});
+
+function handleFile(file) {
+    if (!file) return;
+
+    document.getElementById("fileName").innerText = file.name;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        logoData = e.target.result;
+        generateQR();
+    };
+    reader.readAsDataURL(file);
 }
 
 /* RESET */
 function resetAll() {
     document.getElementById("urlInput").value = "";
     document.getElementById("colorPicker").value = "#000000";
-    document.getElementById("logoInput").value = "";
-    document.getElementById("fileName").innerText = "Ningún archivo seleccionado";
+    document.getElementById("fileName").innerText = "Sin logo";
     document.getElementById("error").innerText = "";
     logoData = null;
 
     qrCode.update({
         data: "",
-        image: "",
-        dotsOptions: { color: "#000000" }
+        image: ""
     });
 }
 
 /* TEMA */
-const themeToggle = document.getElementById("themeToggle");
-
-themeToggle.addEventListener("click", () => {
+document.getElementById("themeToggle").addEventListener("click", () => {
     const body = document.body;
 
     if (body.classList.contains("dark")) {
