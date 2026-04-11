@@ -14,8 +14,8 @@ qrCode = new QRCodeStyling({
     },
     imageOptions: {
         crossOrigin: "anonymous",
-        margin: 5,
-        imageSize: 0.3
+        margin: 10,        // más espacio alrededor del logo
+        imageSize: 0.25   // un poco más chico para mejor lectura
     },
     qrOptions: {
         errorCorrectionLevel: "H"
@@ -52,7 +52,10 @@ function generateQR() {
         qrCode.update({
             data: url,
             dotsOptions: { color: color },
-            image: logoData
+            image: logoData,
+            backgroundOptions: {
+                color: "#ffffff"
+            }
         });
 
         qrContainer.classList.add("show");

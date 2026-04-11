@@ -16,6 +16,14 @@ body.light {
   color: #111;
 }
 
+.control-block.dark {
+  background-color: #273d72;
+}
+
+.control-block.light {
+  background-color: rgb(18, 29, 54);
+}
+
 .container {
   margin-top: 30px;
 }
@@ -90,6 +98,7 @@ button:hover {
 /* BLOQUES */
 .control-block {
   margin-top: 25px;
+  border-radius: 10px;
 }
 
 /* DROPZONE */
